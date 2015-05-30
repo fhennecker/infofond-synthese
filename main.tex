@@ -10,6 +10,7 @@
 \usepackage{upgreek}
 \usepackage{color}
 \usepackage[]{algorithm2e}
+\usepackage{stmaryrd}
 
 \title{
     INFO-F-302 - Informatique Fondamentale\\
@@ -364,7 +365,7 @@
   \subsection{Triplets de Hoare}
   Informellement, les triplets de Hoare sont de la forme $(\phi, P, \psi)$ où $P$
   est un programme, $\phi$ (resp $\psi$) est une pré-condition (resp. post-condition) 
-  décrite par une formule de la logique du premier ordre. On notera en général $(|\phi|), P, (|\psi|)$.
+  décrite par une formule de la logique du premier ordre. On notera en général $\llparenthesis \phi\rrparenthesis P \llparenthesis \psi\rrparenthesis $.
   Nous allons définir un système de preuve pour démontrer que, supposant que $\phi$
   est satisfaite, $\psi$ est satisfaite aussi après exécution du programme $P$.
 
@@ -372,13 +373,55 @@
   Soit $\phi$ une condition (pré ou post) et $I:x\rightarrow \mathbb{Z}$ un état. 
   On dit que $I$ \textit{satisfait} $\phi$, noté $I \vDash \phi$, si $\mathbb{Z}, I \vDash \phi$.\\
 
-  On dit qu'un triplet $(|\phi|)P(|\psi|)$ est \textit{partiellement satisfait} si
+  On dit qu'un triplet $\llparenthesis \phi\rrparenthesis P\llparenthesis \psi\rrparenthesis $ est \textit{partiellement satisfait} si
   pour tout état qui satisfait $\phi$, l'état résultant de l'exécution de $P$
-  satisfait $\psi$, pourvu que $P$ termine. On note cette relation $\vdash_{par} (|\phi|)P(|\psi|)$.\\
+  satisfait $\psi$, pourvu que $P$ termine. On note cette relation $\vdash_{par} \llparenthesis \phi\rrparenthesis P\llparenthesis \psi\rrparenthesis $.\\
 
-  On dit qu'un triplet $(|\phi|)P(|\psi|)$ est \textit{satisfait} si
+  On dit qu'un triplet $\llparenthesis \phi\rrparenthesis P\llparenthesis \psi\rrparenthesis $ est \textit{satisfait} si
   pour tout état qui satisfait $\phi$, l'exécution de $P$ à partir de cet état termine
-  et l'état résultant de cette exécution satisfait $\psi$. On note cette relation $\vDash (|\phi|)P(|\psi|)$.
+  et l'état résultant de cette exécution satisfait $\psi$. On note cette relation $\vDash \llparenthesis \phi\rrparenthesis P\llparenthesis \psi\rrparenthesis $.
 
+  \subsection{Système de preuve $\vdash_{par}$}
+
+  \paragraph{Composition}
+  $$ \frac{\llparenthesis \phi\rrparenthesis C_1\llparenthesis \eta\rrparenthesis \quad \llparenthesis \eta\rrparenthesis C_2\llparenthesis \psi\rrparenthesis }{\llparenthesis \phi\rrparenthesis C_1;C_2 \llparenthesis \psi\rrparenthesis }Composition $$
+
+  \paragraph{Assignation}
+  $$ \frac{}{\llparenthesis \psi[E/x] \rrparenthesis x:=E \llparenthesis \psi \rrparenthesis}Assignation $$
+  où $\psi[E/x]$ est la formule $\psi$ où on a remplacé toutes les occurences de $x$ par $E$.
+  Cette règle est un axiome. \textbf{Exemple :} $\llparenthesis y+z \geq 0 \rrparenthesis x:= y+z \llparenthesis x \geq 0 \rrparenthesis$
+
+  \paragraph{Si-Alors}
+  $$  \frac{
+        \llparenthesis \phi \land B \rrparenthesis C_1 \llparenthesis \psi \rrparenthesis \quad
+        \llparenthesis \phi \land \lnot B \rrparenthesis C_2 \llparenthesis \psi \rrparenthesis
+      }
+      {
+        \llparenthesis \phi \rrparenthesis\, \texttt{if}\, B\, \{ C_1 \}\, \texttt{else}\, \{ C_2\}\, \llparenthesis \psi \rrparenthesis
+      } Si-Alors
+  $$ 
+
+  \paragraph{Implication}
+  $$
+    \frac{
+      \phi' \vDash \phi \quad \llparenthesis\phi\rrparenthesis C \llparenthesis\psi\rrparenthesis \quad \psi \vDash \psi'
+    }
+    {
+      \llparenthesis\phi'\rrparenthesis C \llparenthesis\psi'\rrparenthesis
+    } Implication
+  $$
+  On pourra omettre une des implications si on n'a besoin que de l'une ou des deux.
+
+  \paragraph{While Partiel}
+  $$
+    \frac{
+      \llparenthesis\psi \land B \rrparenthesis C \llparenthesis\psi\rrparenthesis
+    }
+    {
+      \llparenthesis\psi\rrparenthesis\, \texttt{while}\, B\, \{C\}\, \llparenthesis\psi \land \lnot B \rrparenthesis
+    } WhilePar
+  $$
+  La propriété $\psi$ est appelée \textit{invariant}. Elle est toujours vraie à chaque
+  passage dans la boucle, ainsi qu'après le dernier passage.
 
 \end{document}
