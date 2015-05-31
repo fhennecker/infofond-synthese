@@ -713,6 +713,44 @@
   \paragraph{Proposition} Si $p \equiv_A q$, alors $p \cdot q \equiv_A q \cdot a$ pour tout $a \in \Sigma$.
 
 
-  
+  \subsection{Expressions Rationnelles}
+  Une \textit{expression rationnelle} $E$ sur un alphabet $\Sigma$ est une expression
+  qui respecte la grammaire suivante :
+  $$ E\; ::=\; \epsilon\,|\, a\,|\,\varnothing\,|\, (E+E)\,|\, (E.E) \,|\, E^* $$
+
+  \subsubsection{Autres opérations sur les langages}
+  Soient $L, L_1, L_2, \subseteq \Sigma^*$ trois langages. Alors
+  \begin{itemize}
+    \item $L_1.L_2 = \{u_1u_2\, |\, u_1 \in L_1 \land u_2 \in L_2\}$ (on écrira aussi $L_1L_2$)
+    \item $L^* = \{u^n\, |\, u \in L \land n \geq 0\}$ (en particulier $\epsilon \in L^*$ si $L \neq \varnothing$)
+  \end{itemize}
+
+  \subsubsection{Sémantique}
+  La sémantique d'une expression rationnelle $E$ sur $\Sigma$ est donnée par un 
+  langage, noté $L(E)$, défini inductivement par :
+  \begin{itemize}
+    \item $L(\epsilon) = \{\epsilon\}$
+    \item $L(a) = \{a\}$ pour tout $a \in \Sigma$
+    \item $L(\varnothing) = \varnothing$
+    \item $L((E_1+E_2)) = L(E_1) \cup L(E_2)$
+    \item $L((E_1.E_2)) = L(E_1) . L(E_2)$
+    \item $L(E^*) = L(E)^*$
+  \end{itemize}
+
+  \paragraph{Exemples} Sur $\Sigma = \{a,b\}$.
+  \begin{itemize}
+    \item $L((a+b)^*a(a+b)^*)$ est l'ensemble des mots qui contiennent au moins un $a$
+    \item $L(a^*b^*)$ est l'ensemble de mots qui sont des séquences de $a$ suivies 
+    de séquences de $b$.
+  \end{itemize}
+
+  \subsubsection{Théorème dit de Kleene}
+  La classe des langages définissables par automates, et la classe des langages
+  définissables par expressions rationnelles, sont les mêmes. Autrement dit, si 
+  $L \subseteq \Sigma^*$ est un langage, alors il existe un automate $A$ tel
+  que $L = L(A)$ ssi il existe une expression rationnelle $E$ telle que $L = L(E)$.\\
+
+  \paragraph{Remarque} Il existe un algorithme qui transforme tout automate
+  en expression rationnelle et inversement.
 
 \end{document}
