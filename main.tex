@@ -11,6 +11,8 @@
 \usepackage{color}
 \usepackage[]{algorithm2e}
 \usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{float}
 
 \title{
     INFO-F-302 - Informatique Fondamentale\\
@@ -455,5 +457,30 @@
     \item $e_0$ est une variable logique
     \item $\eta$ est l'invariant
   \end{itemize}
+
+
+% ---------------------------------------------------------------------------- %
+\section{Automates finis}
+  Un automate fini lit une séquence de lettres de gauche à droite, possède un 
+  nombre fini d'états. En fonction de l'état courant et de la lettre lue, il se
+  déplace vers un autre état.\\
+
+  L'état initial est représenté par une flèche sans source et les états finaux
+  sont représentés par des doubles cercles. Le mot est accepté si et seulement si
+  l'automate se trouve dans un état final à la fin du mot.
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{fsa/fsa1.eps}
+      \caption{Automate fini $A$}
+      \label{fig:fsa:1}
+    \end{center}
+  \end{figure}
+
+  \paragraph{Langage accepté} Le \textit{langage accepté (ou reconnu)} par
+  l'automate $A$ (fig. \ref{fig:fsa:1}), noté $L(A)$, est l'ensemble des mots
+  qui contiennent un nombre pair de lettres $a$ :
+  $$ L(A) = \{ w \in \{a,b\}^* | w\, \text{contient un nombre pair de} a \}$$
+  
 
 \end{document}
