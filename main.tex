@@ -541,7 +541,7 @@
     \end{align*}
   \end{center}
 
-  \paragraph{Clôture par complément}
+  \subsubsection{Clôture par complément}
   Si $A = (Q, Q_0, F, \delta)$ n'est pas complet, il faut le compléter, puis
   $A_c = (Q, Q_0, Q \setminus F, \delta)$. Par exemple, si $A = $
 
@@ -559,7 +559,7 @@
     \end{center}
   \end{figure}
 
-  \paragraph{Produit d'automates}
+  \subsubsection{Produit d'automates}
   On appellera \textit{pré-automate} sur $\Sigma$ un triplet $(Q, q_0, \delta)$
   où $Q$ est un ensemble fini, $q_0 \in Q$ et $\delta : Q \times \Sigma \rightarrow Q$
   est une fonction.\\
@@ -581,7 +581,7 @@
     \end{align*} 
   \end{center} 
 
-  \paragraph{Exemple} Voici un exemple
+  \paragraph{Exemple} Voici un exemple graphique
 
   \begin{figure}[H]
     \begin{center}
@@ -602,6 +602,45 @@
       \caption{$A_1 \otimes A_2$}
     \end{center}
   \end{figure}
+
+  \paragraph{Exemple intuitif} Si $L(A_1)$ est l'ensemble des mots qui contiennent
+  un nombre pair de $b$ et $L(A_2)$ l'ensemble des mots qui contiennent un 
+  nombre pair de $a$, toute exécution de $A_1 \otimes A_2$ sur un mot $w$ simule
+  en parallèle l'exécution de $A_1$ sur $w$, ainsi que celle de $A_2$.
+
+  \subsubsection{Intersection et Union}
+  \begin{itemize}
+    \item Pour avoir $L(A_1) \cap L(A_2)$, il suffit de prendre $F_\cap = F_1 \times F_2$
+    pour états finaux de $A_1 \otimes A_2$
+    \item Pour avoir $L(A_1) \cup L(A_2)$, il suffit de prendre $F_\cup = (F_1 \times Q_2) \cup (Q_1 \times F_2)$
+    pour états finaux de $A_1 \otimes A_2$
+  \end{itemize}
+  Pour la clôture (construire un automate à partir du pré-automate produit et des états
+  finaux ci-dessus), $A_1$ et $A_2$ doivent être complets.
+
+  \subsubsection{Inclusion et Equivalence}
+  Soient $A_1$ et $A_2$ deux automates sur un alphabet $\Sigma$. On dit que
+  $A_1$ et $A_2$ sont équivalents si $L(A_1) = L(A_2)$.\\
+  On peut décider en temps polynomial si $L(A_1) \subseteq L(A_2)$, et si $L(A_1) = L(A_2)$
+
+  \paragraph{Algorithme}
+  $L(A_1) = L(A_2)$ ssi $L(A_1) \subseteq L(A_2)$ et $L(A_2) \subseteq L(A_1)$.
+  On peut donc se concentrer sur l'inclusion. Il faut compléter $A_1$ et $A_2$.
+  Ensuite, on a $L(A_1) \subseteq L(A_2)$ ssi $L(A_1) \cap \overline{L(A_2)} = \varnothing$
+  \begin{enumerate}
+    \item construire $A_c$ tel que $L(A_c) = \overline{L(A_2)}$
+    \item construire $I$ tel que $L(I) = L(A_1) \cap L(A_c)$ avec le produit $A_1 \otimes A_c$
+    \item tester le vide de $I$
+  \end{enumerate}
+
+  \paragraph{Exemple} Il y a un excellent exemple dans le cours.
+
+
+  \subsection{Minimisation}
+  Etant donné un automate $A$, l'objectif de la minimisation est de construire un automate
+  complet $M$ tel que $M$ a un nombre d'états minimal, et $M$ est équivalent à $A$.
+
+  \subsubsection{Relation de Myhill-Nerode}
   
 
 \end{document}
