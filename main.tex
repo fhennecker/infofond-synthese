@@ -481,6 +481,127 @@
   l'automate $A$ (fig. \ref{fig:fsa:1}), noté $L(A)$, est l'ensemble des mots
   qui contiennent un nombre pair de lettres $a$ :
   $$ L(A) = \{ w \in \{a,b\}^* | w\, \text{contient un nombre pair de} a \}$$
+
+  \paragraph{Définition formelle} Un automate fini $A$ sur un alphabet $\Sigma$
+  est un 4-uplet $(Q, q_0, F, \delta)$ où
+  \begin{itemize}
+    \item $Q$ est un ensemble fini d'éléments appelés \textit{états}
+    \item $q_0$ est appelé \textit{état initial}
+    \item $F \subseteq Q$ est un ensemble d'états dits \textit{finaux ou acceptants}
+    \item $\delta : Q \times \Sigma \rightarrow Q $ est une fonction (pas nécessairement totale)
+    appelée \textit{fonction de transition}
+  \end{itemize}
+
+  \paragraph{Exécution} Une \textit{exécution} de $A$ est une suite finie 
+  $e = p_0 \sigma_1 p_1 \sigma_2 ... p_{n-1} \sigma_n p_n$ ($n \geq 0$) telle que
+  \begin{itemize}
+    \item $p_0 = q_0$
+    \item $\forall i \in \{0,...,n\} : p_i \in Q$
+    \item $\forall i \in \{1,...,n\} : \sigma_i \in \Sigma$
+    \item $\forall i \in \{0,...,n-1\} : \delta(p_i, \sigma_{i+1})$ est définie
+    et vaut $p_i+1$
+  \end{itemize}
+  On dit que l'exécution $e$ est \textit{acceptante} si l'état atteint est final ($p_n \in F$)
+
+  \paragraph{Complétion} Un automate $A$ est dit \textit{complet} si sa fonction de
+  transition est totale.\\
+
+  \textbf{Lemme} On peut toujours transformer un automate $A$ en un automate $B$
+  complet qui accepte le même langage. (Idée : ajouter un état supplémentaire 
+  appelé état puits non final et ajouter les transition manquantes vers cet état)
+
+  \subsection{Test du vide}
+  Le problème VIDE est le suivant :
+  \begin{itemize}
+    \item \textbf{Entrée :} un automate $A$ sur un alphabet $\Sigma$
+    \item \textbf{Sortie :} est-ce que $L(A) = \varnothing$ ?
+  \end{itemize}
+
+  \paragraph{Etats atteignables} Soit $A = (Q, q_0, F, \delta)$ un automate sur un
+  alphabet $\Sigma$. Un état $q\in Q$ est dit \textit{atteignable} s'il existe
+  un mot $w \in \Sigma^*$ et une exécution de $A$ sur $w$ qui se termine en $q$.\\
+
+  Etant donné un automate $A$ avec $n$ états et $m$ transitions, on peut tester
+  en $O(n+m)$ si $L(A) \neq \varnothing$ (en utilisant des algorithmes de graphe
+  classiques comme le parcours en largeur par exemple).
+
+  \subsection{Opérations Booléennes sur les langages}
+  \paragraph{Complément de $L \subseteq \Sigma^*$ :} $\overline{L} = \{ w \in \Sigma^* | w \not \in L\} = \Sigma^* \setminus L$.
+
+  \paragraph{Union, Intersection :} Trivial.
+
+  \subsection{Clôture des automates par opérations Booléennes}
+  Soient $A_1$ et $A_2$ des automates finis sur un alphabet $\Sigma$. Il existe
+  des automates $A_c$, $U$ et $I$ tels que :
+  \begin{center}
+    \begin{align*}
+      L(A_c) & = \overline{L(A_1)}\\
+      L(U) & = L(A_1) \cup L(A_2)\\
+      L(I) & = L(A_1) \cap L(A_2)
+    \end{align*}
+  \end{center}
+
+  \paragraph{Clôture par complément}
+  Si $A = (Q, Q_0, F, \delta)$ n'est pas complet, il faut le compléter, puis
+  $A_c = (Q, Q_0, Q \setminus F, \delta)$. Par exemple, si $A = $
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{fsa/fsa1.eps}
+    \end{center}
+  \end{figure}
+
+  alors $A_c =$
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{fsa/fsa1_complement.eps}
+    \end{center}
+  \end{figure}
+
+  \paragraph{Produit d'automates}
+  On appellera \textit{pré-automate} sur $\Sigma$ un triplet $(Q, q_0, \delta)$
+  où $Q$ est un ensemble fini, $q_0 \in Q$ et $\delta : Q \times \Sigma \rightarrow Q$
+  est une fonction.\\
+
+  Soient $A_1 = (Q_1, q_0^1, F_1, \delta_1$ et $A_2 = (Q_2, q_0^2, F_2, \delta_2$
+  deux automates sur $\Sigma$. Le produit de $A_1$ et $A_2$, noté $A_1 \otimes A_2$
+  est le pré-automate défini par : 
+  $$ A_1 \otimes A_2 = (Q_1 \times Q_2, (q_0^1, q_0^2), \delta_{12})$$
+  où, pour tout $(q_1, q_2) \in Q_1 \times Q_2$, pour tout $\sigma \in \Sigma$,
+
+  \begin{center} 
+    \begin{align*} 
+     \delta((q_1, q_2), \sigma) = 
+      \begin{cases}
+        \text{indéfini} & \text{si}\, \delta_1(q_1, \sigma)\, \text{est indéfinie}\\
+        \text{indéfini} & \text{si}\, \delta_2(q_2, \sigma)\, \text{est indéfinie}\\
+        (\delta_1(q_1, \sigma), \delta_2(q_2, \sigma)) & \text{sinon}.
+      \end{cases} 
+    \end{align*} 
+  \end{center} 
+
+  \paragraph{Exemple} Voici un exemple
+
+  \begin{figure}[H]
+    \begin{center}
+      \begin{minipage}{0.45\textwidth}
+        \includegraphics{fsa/fsa_productA1.eps}
+        \caption{$A_1$}
+      \end{minipage}\hfill
+      \begin{minipage}{0.45\textwidth}
+        \includegraphics{fsa/fsa_productA2.eps}
+        \caption{$A_2$}
+      \end{minipage}
+    \end{center}
+  \end{figure}
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.5\textwidth]{fsa/fsa_product.eps}
+      \caption{$A_1 \otimes A_2$}
+    \end{center}
+  \end{figure}
   
 
 \end{document}

@@ -4,6 +4,8 @@ FIGURES = $(shell grep '{.*.eps}' *.tex | cut -d '{' -f 2 | tr -d '}')
 
 all: main.pdf
 
+figures: $(FIGURES)
+
 clean:
 	rm -f *.log *.aux *.toc *.out
 

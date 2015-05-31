@@ -1,0 +1,19 @@
+digraph product {
+    rankdir="LR";
+    size="6,6";
+    start [style = invis width = 0 height = 0 shape = point];
+    node [shape = circle];
+    p0q0 [pos="1,1!"];
+    p0q1 [pos="5,1!"];
+    p1q0 [pos="1,5!"];
+    p1q1 [pos="5,5!"];
+    start -> p0q0;
+    p0q0 -> p0q1 [ label = "a" ];
+    p0q0 -> p1q0 [ label = "b" ];
+    p0q1 -> p1q1 [ label = "b" ];
+    p0q1 -> p0q0 [ label = "a" ];
+    p1q0 -> p1q1 [ label = "a" ];
+    p1q0 -> p0q0 [ label = "b" ];
+    p1q1 -> p1q0 [ label = "a" ];
+    p1q1 -> p0q1 [ label = "b" ];
+}

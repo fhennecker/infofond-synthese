@@ -1,0 +1,12 @@
+digraph a2 {
+    rankdir=LR;
+    size="3,1";
+    start [style = invis width = 0 height = 0 shape = point];
+    p0 [shape = doublecircle];
+    p1 [shape = circle];
+    start -> p0;
+    p0 -> p1 [ label = "a" ];
+    p1 -> p0 [ label = "a" ];
+    p0 -> p0 [ label = "b" ];
+    p1 -> p1 [ label = "b" ];
+}
