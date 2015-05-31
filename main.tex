@@ -424,4 +424,36 @@
   La propriété $\psi$ est appelée \textit{invariant}. Elle est toujours vraie à chaque
   passage dans la boucle, ainsi qu'après le dernier passage.
 
+  \subsection{Correction et complétude}
+  Soit $\llparenthesis\phi\rrparenthesis P \llparenthesis\psi\rrparenthesis$ un triplet
+  de Hoare. Alors $\vDash_{par} \llparenthesis\phi\rrparenthesis P \llparenthesis\psi\rrparenthesis$
+  si et seulement si $\vdash_{par} \llparenthesis\phi\rrparenthesis P \llparenthesis\psi\rrparenthesis$
+
+  \subsection{Terminaison d'un programme}
+  Comme l'instruction \texttt{while} est la seule source de non-terminaison,
+  on va identifier une expression arithmétique $E$ et démontrer qu'elle
+  décroît strictemenet à chaque passage dans la boucle. Comme la quantité ne peut
+  être négative, on aura bien une preuve de terminaison. \\
+
+  Une telle expression est appelée \textit{variant}.
+
+  \paragraph{While Total}
+  $$
+    \frac{
+      \llparenthesis\eta\land B \land 0 \leq E = e_0 \rrparenthesis
+      C
+      \llparenthesis\eta\land 0 \leq E < e_0 \rrparenthesis
+    }
+    {
+      \llparenthesis\eta\land 0 \leq E = e_0 \rrparenthesis\,
+      \texttt{while}\, B\, \{C\}\,
+      \llparenthesis\eta\land\lnot B\rrparenthesis
+    } WhileTot
+  $$
+  \begin{itemize}
+    \item $E$ est l'expression arithmétique qui décroît à chaque exécution de $C$
+    \item $e_0$ est une variable logique
+    \item $\eta$ est l'invariant
+  \end{itemize}
+
 \end{document}
