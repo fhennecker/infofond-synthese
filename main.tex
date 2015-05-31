@@ -195,10 +195,10 @@
 
   Chaque langage $P$ représente bien un problème dont la réponse est oui ou non, 
   en l'identifiant à sa fonction caractéristique $\chi_P$ :
-  \begin{align}
+  \begin{align*}
     \chi_P : \Sigma^* & \rightarrow & \{0,1\} \\
     u & \mapsto & \begin{cases}1 \text{si} u \in P \\ 0 \text{si} u \not \in P\end{cases}
-  \end{align}
+  \end{align*}
 
   \subsection{Problème d'optimisation}
   Un \textit{problème d'optimisation} est un problème où l'on veut maximiser ou
@@ -641,6 +641,78 @@
   complet $M$ tel que $M$ a un nombre d'états minimal, et $M$ est équivalent à $A$.
 
   \subsubsection{Relation de Myhill-Nerode}
+  Soit $L \subseteq \Sigma^*$ un langage, et $u,v\in L$ deux mots de $L$.
+  Les mots $u$ et $v$ sont dits équivalents pour $L$, noté $u \equiv_L v$ si
+  $ \forall w \in \Sigma^*, uw \in L \text{ssi} vw \in L$.
+
+  \paragraph{Exemple} les mots $u=ababb$ et $v=baa$ sont équivalents pour le 
+  langage PAIR.
+
+  \paragraph{Proposition} La relation $\equiv_L$ est une relation d'équivalence. 
+  (symétrique, réflexive, transitive)
+
+  \paragraph{Classes d'équivalence}
+  Etant donné un mot $u \in \Sigma^*$, la \textit{classe d'équivalence} de $u$ pour
+  $\equiv_L$, notée $[u]_L$, est l'ensemble des mots équivalents à $u$ :
+  $$ \forall u \in \Sigma^*, [u]_L = \{v \in \Sigma^* | u \equiv_L v\}$$
+  On note $\Sigma^*/_{\equiv_L}$ l'ensemble quotient de $\Sigma^*$ par $\equiv_L$, 
+  i.e. l'ensemble des classes d'équivalences.
+
+  \subsubsection{Théorème de Myhill-Nerode}
+  Soit $L \subseteq \Sigma^*$. Alors $L$ est reconnaissable par un automate 
+  ssi $\Sigma^*/_{\equiv_L}$ est un ensemble fini.
+  
+  \paragraph{Exemple} Avec le langage PAIR, on a exactement deux classes d'équivalences:
+  \begin{align*}
+    \{a,b\}^*/_{\equiv_{PAIR}} & = \{ \{\epsilon, aa, aba, baa,...\},\, \{a, ab, ba, aaa,...\} \}\\
+    & = \{[\epsilon]_{\equiv_{PAIR}}, [a]_{\equiv_{PAIR}}\}
+  \end{align*}
+
+  \subsubsection{Automate Quotient}
+  Soit $L \subseteq \Sigma^*$ un langage reconnaissable par un automate. 
+  Donc $\Sigma^*/_{\equiv_L}$ est un ensemble fini.\\
+
+  L'\textit{automate quotient} de $L$ est l'automate complet $A_L = (Q, q_0, F, \delta)$ où
+  \begin{itemize}
+    \item $Q = \Sigma^*/_{\equiv_L}$
+    \item $q_0 = [\epsilon]_L$
+    \item $F = \{ [u]_L\, |\, u \in L \}$
+    \item $\delta$ est la fonction de transition définie par $\delta([u]_L, a) = [ua]_L$
+  \end{itemize}
+
+  \paragraph{Théorème} Soit $L \subseteq \Sigma^*$. L'automate quotient $A_L$ est
+  le plus petit automate complet (en nombre d'états) qui reconnaît $L$, et il est 
+  unique (modulo renommage des états).
+
+  \subsubsection{Calcul de l'automate minimal}
+  \paragraph{Définitions}
+  Soit $A = (Q, q_0, F, \delta)$ un automate complet sur un alphabet $\Sigma$. 
+  Pour tout mot $u \in \Sigma^*$, pour tout état $q \in Q$, n note :
+  \begin{itemize}
+    \item $q \cdot u$ l'état atteint par $A$ après lecture de $u$ à partir de $q$
+    (il existe car $A$ est complet)
+    \item $L_q$ le langage formé des mots $u$ tels que $q\cdot u \in F$ (les mots
+    acceptés à partir de $q$).
+    \item $\forall p,q\in Q$, $p \equiv_A q$ si $L_p = L_q$
+  \end{itemize}
+
+  \paragraph{Proposition} Soit $A$ un automate complet. Alors pour tout $u,v \in \Sigma^*$,
+  $u \equiv_{L(A)} v$ ssi $q_0 \cdot u \equiv_A q_O \cdot v$.
+
+  \paragraph{Calcul}
+  \begin{itemize}
+    \item Il suffit de calculer les classes d'équivalences de $Q$ pour $\equiv_A$, 
+    ce qui donnera les états
+    \item la classe de $q_0$ est l'état initial
+    \item toute classe qui contient un état final est finale (en fait, si une classe
+    contient un état final, alors tous ces états sont finaux)
+    \item on met une transition de l'état $[q]_{\equiv_A}$ à l'état $[q \cdot a]_{\equiv_A}$,
+    en lisant $a$, pour tout $a \in \Sigma$, et tout $q \in Q$.
+  \end{itemize}
+  
+  \paragraph{Proposition} Si $p \equiv_A q$, alors $p \cdot q \equiv_A q \cdot a$ pour tout $a \in \Sigma$.
+
+
   
 
 \end{document}
