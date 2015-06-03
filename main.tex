@@ -150,7 +150,7 @@
 
   \begin{algorithm}[H]
     \uIf{$\phi = \top$}{retourner \texttt{VRAI}}
-    \uElseIf{$\phi = \top$}{retourner \texttt{FAUX}}
+    \uElseIf{$\phi = \bot$}{retourner \texttt{FAUX}}
     \uElseIf{$\phi$ contient une clause unitaire $x$}{retourner DPLL($\phi[x/1]$)}
     \uElseIf{$\phi$ contient une clause unitaire $\lnot x$}{retourner DPLL($\phi[x/0]$)}
     \uElseIf{$\phi$ contient une proposition $x$ de polarité toujours positive}{retourner DPLL($\phi[x/1]$)}
@@ -345,9 +345,9 @@
    \begin{itemize}
      \item d'un sous ensemle de $M^n$, noté $r^{\mathcal{M}}$, pour chaque symbole
      de prédicat $r$ d'arité $n$ dans $\mathcal{L}$
-     \item d'une fonction de $M^n$ dans $M$, notée $f^{\mathcal{M}}$, pour chaque symbole
+     \item d'une fonction de $M^m$ dans $M$, notée $f^{\mathcal{M}}$, pour chaque symbole
      de fonction $f$ d'arité $m$ dans $\mathcal{L}$
-     \item d'un élément de $M$, noté $r^{\mathcal{M}}$, pour chaque symbole de 
+     \item d'un élément de $M$, noté $c^{\mathcal{M}}$, pour chaque symbole de 
      constante $c$ dans $\mathcal{L}$
    \end{itemize}
 
