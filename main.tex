@@ -150,7 +150,7 @@
 
   \begin{algorithm}[H]
     \uIf{$\phi = \top$}{retourner \texttt{VRAI}}
-    \uElseIf{$\phi = \top$}{retourner \texttt{FAUX}}
+    \uElseIf{$\phi = \bot$}{retourner \texttt{FAUX}}
     \uElseIf{$\phi$ contient une clause unitaire $x$}{retourner DPLL($\phi[x/1]$)}
     \uElseIf{$\phi$ contient une clause unitaire $\lnot x$}{retourner DPLL($\phi[x/0]$)}
     \uElseIf{$\phi$ contient une proposition $x$ de polarité toujours positive}{retourner DPLL($\phi[x/1]$)}
