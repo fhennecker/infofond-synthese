@@ -29,6 +29,59 @@
 
 \section{Logique propositionnelle}
 
+  \subsection{Déduction naturelle}
+  Raisonnement uniquement sur l'expression logique (pas de valuation).
+  On écrit les prémisse (ce qu'on a), on tire une ligne, et on place les conclusions
+  en dessous de la ligne. Le nom de la règle est placé à droite.
+  
+  \subsubsection{Conjonction}
+  \paragraph{Introduction} si on a $\Phi$ et qu'on a $\Psi$,
+  on en déduit $\Phi\land\Psi$.
+  $$\frac{\Phi~...~\Psi}{\Phi \land \Psi}\land_{i}$$
+
+  \paragraph{\'Elimination} Si on a $\Phi\land\Psi$ on peut en
+  déduire qu'on a $\Phi$, on peut aussi en déduire qu'on a $\Psi$
+  $$\frac{\Phi \land \Psi}{\Phi}\land_{e1} ~~ et ~~ \frac{\Phi \land \Psi}{\Psi}\land_{e2}$$
+
+  \subsubsection{Copie} Si on a $\Phi$, on peut en déduire $\Phi$
+  $$\frac{\Phi}{\Phi}copie $$
+
+  \subsubsection{Contradiction}Du faux, on peut déduire n'importe quoi
+  $$ \frac{\bot}{\Phi}\bot_{e} $$
+
+  \subsubsection{Négation}
+  \paragraph{Double négation} Pas pas le premisse, c'est le prémisse
+  $$\frac{\Psi}{\lnot\lnot\Psi}\lnot\lnot_{i} ~~ et ~~ \frac{\lnot\lnot\Phi}{\Phi}\lnot\lnot_{e}$$
+
+  \paragraph{Introduction} En posant une hypothèse et en concluant qu'elle est fausse, on en déduit le contraire de l'hypothèse
+  $$ \frac{\begin{matrix} \Phi & hyp\\
+     ... & \\
+     \bot & fin ~ hyp\end{matrix}}{\lnot \Phi}\lnot_{i} $$
+
+  \paragraph{\'Elimination} Quelque chose et son contraire est faux
+  $$\frac{\Phi~...~\lnot\Phi}{\bot}\lnot_{e}$$
+
+  \subsubsection{Disjonction}
+  \paragraph{Introduction} Si on a quelque chose, on a aussi quelque chose ou autre chose.
+  $$\frac{\Phi}{\Phi \lor \Psi}\lor_{i1} ~~ et ~~ \frac{\Psi}{\Phi \lor \Psi}\lor_{i2}$$
+
+  \paragraph{\'Elimination} Si on a quelque chose ou autre chose, et que des deux
+  on peut tirer la même conclusion, on a cette conclusion
+  $$ \frac{\begin{matrix} &  & \Psi_{1} & hyp & ... & \Psi_{2} & hyp\\
+      & & ... & & & ... & \\
+     \Psi_{1}\lor\Psi_{2} & ... & \Phi & fin ~ hyp & ... & \Phi & fin ~ hyp\end{matrix}}{\Phi}\lor_{e} $$
+
+  \subsubsection{Implication}
+  \paragraph{Introduction} Si on pose une hypothèse, on peut en déduire que cette
+  hypothèse implique sa conclusion
+  $$ \frac{\begin{matrix} \Phi & hyp\\
+     ... & \\
+     \Psi & fin~hyp\end{matrix}}{\Phi \rightarrow \Psi}\rightarrow_{i} $$
+
+  \paragraph{\'Elimination} Si quelque chose implique autre chose et qu'on a
+  quelque chose, on a autre chose.
+  $$ \frac{\Phi ~...~ \Phi \rightarrow \Psi}{\Psi}\rightarrow_{e} $$
+
   \subsection{Coupure}
   \textit{(Les notations sont plus précises dans le cours)}\\
   $$ C_1 = p_1 \lor ... \lor p_{i-1} \lor \textcolor{red}{p} \lor p_{i+1} \lor ... \lor p_n$$
