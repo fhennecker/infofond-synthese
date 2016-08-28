@@ -96,6 +96,32 @@ La source de cette synthèse peut être trouvée sur \url{https://github.com/fhe
 
   \paragraph{Tiers exclus}
   $$\frac{}{\Phi \lor \lnot\Phi}LEM$$
+  
+  \subsection{Clauses}
+  Une formule propositionnelle $\Phi$ est une \emph{clause} si $\Phi = \Psi_1 \vee \Psi_2 \vee ... \vee \Psi_n$ et chaque $\Psi_n$ est un littéral (proposition ou négation d'une proposition).
+  \paragraph{Example} $p \vee \neg q \vee r$ est une clause mais pas $p \wedge q \vee r$
+  \paragraph{}
+  Soit une clause 
+  $$ \neg a_1 \vee \neg a_2 \vee ... \vee \neg a_m \vee b_1 \vee b_2 \vee ... \vee b_n$$
+  \paragraph{}
+  Cette clause peut-être réécrite
+  
+  $$( a_1 \wedge a_2 \wedge ... \wedge a_m ) \longrightarrow (  b_1 \vee b_2 \vee ... \vee b_n)$$
+  Car si toutes les proposition $a_i$ sont vrai, forcément une des $b_i$ doit l'être.
+  
+  \paragraph{}
+  On peut encore réécrire cette clause comme une paire d'ensemble $(N, P)$ où  $N = {a_1, a_2, ..., a_m}$ et $P = {b_1, b_2, ..., b_n}$.
+  
+  \paragraph{}
+  Une \emph{clause} $(N, P)$ est:
+  \begin{itemize}
+   \item{\emph{négative} si $P = \phi$} 
+   \item{\emph{positive} si $N = \phi$} 
+   \item{\emph{vide} si $N = P = \phi$ (on la note $\bot$)} 
+   \item{\emph{tautologique} si $ N \cap P \neq \phi$} 
+  \end{itemize}
+
+  
 
   \subsection{Coupure}
   \textit{(Les notations sont plus précises dans le cours)}\\
